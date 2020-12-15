@@ -1,0 +1,13 @@
+name: Playtime
+main: com.playtime.Playtime
+author: MrPixxima
+version: 1.2
+api-version: 1.13
+depends: [Vault]
+commands:
+  playtime:
+    description: Shows playtime for a player
+  pt:
+    description: Shows playtime for a player
+  seen:
+    description: Shows seen times for a player

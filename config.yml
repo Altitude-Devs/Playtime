@@ -1,0 +1,140 @@
+###################################################
+# PlayTime Configuration -  Plugin by: MrPixxima  #
+###################################################
+# Permissions:
+#  playtime.view - Players can view their playtime
+#  playtime.view.others - Players can view other peoples playtime
+#  playtime.playtime.set - Can change players times.
+#  playtime.seen - View players last seen times.
+# Commands:
+#  /playtime | /pt
+#  /playtime <player>
+#  /playtime set <player> <server> <minutes>
+#
+#  /seen <player>
+
+# If you set this to false it will not track any player times.
+# Useful for putting the plugin on a server (Lobby, Events, etc.)
+# and just be able to view playtimes without being on a certain server.
+tracktime: true
+
+# How often (in minutes) the auto save runs
+auto-save: 10
+
+# How often (in minutes) the auto rank runs
+auto-rank: 10
+
+### DATABASE ###
+ip: "nova"
+port: "3306"
+username: "username"
+password: "password"
+database: "playtime"
+drivers: "mysql"
+
+# Name of the server within the users table (ie Summit, Valley, Meadow)
+server: "ServerName"
+
+# Placeholders
+# - %player% - player
+# - msgplayer - Sends a player a message.
+# - msgbc - Broadcast a message to the whole server.
+
+groups:
+  default:
+    requirement: 120
+    commands:
+      - "lp user %player% promote default"
+      - "tm msg %player% &9Rank Up!<nl>&fNomad"
+      - "broadcast &9* %player% has ranked up to Nomad!"
+  nomad:
+    requirement: 1440
+    commands:
+      - "lp user %player% promote default"
+      - "tm msg %player% &9Rank Up!<nl>&fPeddler"
+      - "broadcast &9* %player% has ranked up to Peddler!"
+  peddler:
+    requirement: 4320
+    commands:
+      - "lp user %player% promote default"
+      - "tm msg %player% &9Rank Up!<nl>&fSettler"
+      - "broadcast &9* %player% has ranked up to Settler!"
+  settler:
+    requirement: 10080
+    commands:
+      - "lp user %player% promote default"
+      - "tm msg %player% &9Rank Up!<nl>&fResident"
+      - "broadcast &9* %player% has ranked up to Resident!"
+  resident:
+    requirement: 20160
+    commands:
+      - "lp user %player% promote default"
+      - "tm msg %player% &9Rank Up!<nl>&fEsquire"
+      - "broadcast &9* %player% has ranked up to Esquire!"
+  esquire:
+    requirement: 43200
+    commands:
+      - "lp user %player% promote default"
+      - "tm msg %player% &9Rank Up!<nl>&fKnight"
+      - "broadcast &9* %player% has ranked up to Knight!"
+
+#Placeholders:
+# - %server% - replaced with the next server
+# - %time% - replaced with time of said server
+# - %total% - replaced with total playtime
+# - %player% - replaced with the players name and an 's, or "Your"
+
+# Message when the following is ran: /playtime
+playtime-format-header:
+  - "&f&m-------&8[&m--&6 %player% playtime: &8&m--&8]&f&m-------"
+
+playtime-format: "&6%server%: %time%"
+
+playtime-format-footer:
+  - "&f&m------------"
+  - "&6Total: &f%total%"
+  - "&f&m--------------&8&m[--&r    &8&m--]&f&m--------------"
+
+# Message when the following is ran: /playtime <name>
+
+#Placeholders:
+# - %server% - replaced with the server name
+# - %player% - replaced with the players name
+# - %oldtime% - replaced with players old playtime before it is changed in /playtime set
+# - %newtime% - replaced with players new playtime after it is changed in /playtime set
+
+messages:
+  no-permission: "&cYou do not have permission to do that command."
+  no-playtime-server: "&c%player% does not have any playtime on %server%."
+  player-not-found: "&c%player% is not a valid player."
+  invalid-server: "&c%server% server does not exist."
+
+  invalid-set-command: "&cInvalid Usage. /playtime set <player> <server> <time>"
+  player-time-change:
+    - "&a%player%'s time was successfully changed for %server%"
+    - "&aOldtime ➜ %oldtime%"
+    - "&aNewTime ➜ %newtime%"
+
+  invalid-seen-command: "&cInvalid Usage. /seen <player>"
+
+##### Seen Command is disabled. Will be fixed soon. #####
+#Placeholders:
+# - %server% - replaced with the next server
+# - %player% - replaced with the players name and an 's, or "Your"
+# - %day% - replaced with the day format given below
+# - %time% - replaced with the time format given below
+# - %online/offline% - replaces "seen-online-format" and "seen-offline-format" if the player is online or offline
+
+seen-format: "&fPlayer &6%player% &fhas been %online/offline% &ffor %time% on %server%."
+
+seen-online-format: "&aonline"
+seen-offline-format: "&coffline"
+seen-time-null: "&cNo recorded time."
+seen-servers-format:
+  atoll: "&eAtoll"
+  meadow: "&aMeadow"
+  summit: "&bSummit"
+  valley: "&dValley"
+  lobby: "&7Lobby"
+  events: "&cEvents"
+  creative: "&6Creative"

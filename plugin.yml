@@ -2,12 +2,16 @@ name: Playtime
 main: com.playtime.Playtime
 author: MrPixxima
 version: 1.2
-api-version: 1.13
+api-version: 1.16
 depends: [Vault]
+description: Stores and displays playtime, executes commands based on playtime
 commands:
   playtime:
+    permission: playtime.view
     description: Shows playtime for a player
   pt:
+    permission: playtime.view
     description: Shows playtime for a player
   seen:
+    permission: playtime.seen
     description: Shows seen times for a player

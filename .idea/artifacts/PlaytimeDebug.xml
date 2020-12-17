@@ -1,10 +1,13 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Playtime">
-    <output-path>$PROJECT_DIR$/out</output-path>
+  <artifact type="jar" name="PlaytimeDebug">
+    <output-path>$PROJECT_DIR$/../../Servers/debugServer/plugins</output-path>
     <root id="archive" name="Playtime.jar">
       <element id="module-output" name="Playtime" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
       <element id="file-copy" path="$PROJECT_DIR$/config.yml" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>

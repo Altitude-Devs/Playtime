@@ -6,23 +6,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+public class PlanDatabaseConnection {
 
-    public static DatabaseConnection instance;
+    public static PlanDatabaseConnection instance;
 
     public Connection connection;
 
     public String drivers, ip, port, database, username, password, tableName;
 
-    public DatabaseConnection() throws SQLException  {
-
-        this.drivers = Playtime.getInstance().getConfig().getString("drivers");
-        this.ip = Playtime.getInstance().getConfig().getString("ip");
-        this.port = Playtime.getInstance().getConfig().getString("port");
-        this.database = Playtime.getInstance().getConfig().getString("database");
-        this.username = Playtime.getInstance().getConfig().getString("username");
-        this.password = Playtime.getInstance().getConfig().getString("password");
-        this.tableName = Playtime.getInstance().getConfig().getString("server");
+    public PlanDatabaseConnection() throws SQLException {
+        String prefix = "databases.plan.";
+        this.drivers = Playtime.getInstance().getConfig().getString(prefix + "drivers");
+        this.ip = Playtime.getInstance().getConfig().getString(prefix + "ip");
+        this.port = Playtime.getInstance().getConfig().getString(prefix + "port");
+        this.database = Playtime.getInstance().getConfig().getString(prefix + "database");
+        this.username = Playtime.getInstance().getConfig().getString(prefix + "username");
+        this.password = Playtime.getInstance().getConfig().getString(prefix + "password");
+        this.tableName = Playtime.getInstance().getConfig().getString(prefix + "server");
 
         instance = this;
 
@@ -61,6 +61,6 @@ public class DatabaseConnection {
     }
 
     public static void initialize() throws SQLException {
-        instance = new DatabaseConnection();
+        instance = new PlanDatabaseConnection();
     }
 }

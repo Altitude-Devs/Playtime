@@ -22,7 +22,7 @@ public class PlaytimeConnection {
 
     public static void createPlaytimeTable() {
 
-        String sql = "CREATE TABLE IF NOT EXISTS " + Playtime.getServerName().toLowerCase() + "(\n" + " uuid VARCHAR(36) NOT NULL,\n"
+        String sql = "CREATE TABLE IF NOT EXISTS " + Playtime.getServerName().toLowerCase() + " (\n" + " uuid VARCHAR(36) NOT NULL,\n"
                 + " time INTEGER,\n" + " seen INTEGER(12),\n" + " online BIT,\n" + " PRIMARY KEY(UUID)\n);";
 
         try {
@@ -38,7 +38,8 @@ public class PlaytimeConnection {
 
     public static void setPlaytime(final UUID uuid, final int time, final String serverName) {
 
-        String sql = "INSERT INTO " + serverName.toLowerCase() + " (uuid, time, seen) VALUES (?, ?, UNIX_TIMESTAMP(0)) " + time;
+        String sql = "INSERT INTO " + serverName.toLowerCase() + " (uuid, time, seen) VALUES (?, ?, UNIX_TIMESTAMP(0)) " +
+                "ON DUPLICATE KEY UPDATE time = VALUES(time), seen = VALUES(seen)";
 
         try (PreparedStatement statement = PlaytimeDatabaseConnection.getConnection().prepareStatement(sql)) {
 
@@ -67,7 +68,7 @@ public class PlaytimeConnection {
 
                 try (PreparedStatement statement = PlaytimeDatabaseConnection.getConnection().prepareStatement(sql)) {
 
-                    statement.setString(1, Playtime.getInstance().getConfig().getString("database"));
+                    statement.setString(1, Playtime.getInstance().getConfig().getString("databases.playtime.database"));
 
                     ResultSet rs = statement.executeQuery();
 

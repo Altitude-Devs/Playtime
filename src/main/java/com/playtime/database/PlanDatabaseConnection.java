@@ -28,9 +28,6 @@ public class PlanDatabaseConnection {
 
         instance.openConnection();
 
-        PlaytimeConnection.createPlaytimeTable();
-        SeenConnection.createSeenTable();
-
     }
 
     public void openConnection() throws SQLException {

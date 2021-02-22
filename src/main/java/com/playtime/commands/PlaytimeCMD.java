@@ -13,6 +13,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,7 +75,12 @@ public class PlaytimeCMD implements CommandExecutor {
                     } else if (args[0].equalsIgnoreCase("extra")){
                         if (sender.hasPermission("playtime.extra")) {
                             Player player = (Player) sender;
-                            Database.getDetailedPlaytimeMessage(sender, player, false);
+                            new BukkitRunnable(){
+                                @Override
+                                public void run() {
+                                    Database.getDetailedPlaytimeMessage(sender, player, false);
+                                }
+                            }.runTaskAsynchronously(playtime);
                         } else {
                             sender.sendMessage(Utilities.format(playtime.getConfig().getString("messages.no-permission")));
                         }
@@ -84,7 +90,12 @@ public class PlaytimeCMD implements CommandExecutor {
                         OfflinePlayer target = Bukkit.getServer().getOfflinePlayer(args[0]);
 
                         if (PlaytimeConnection.hasPlayedBefore(target.getUniqueId())) {
-                            Database.getPlaytimeMessage(sender, target.getUniqueId(), true);
+                            new BukkitRunnable(){
+                                @Override
+                                public void run() {
+                                    Database.getPlaytimeMessage(sender, target.getUniqueId(), true);
+                                }
+                            }.runTaskAsynchronously(playtime);
                         } else {
                             sender.sendMessage(Utilities.format(playtime.getConfig().getString("messages.player-not-found")
                                     .replace("%player%", target.getName())));
@@ -102,7 +113,12 @@ public class PlaytimeCMD implements CommandExecutor {
                             OfflinePlayer target = Bukkit.getServer().getOfflinePlayer(args[1]);
 
                             if (PlaytimeConnection.hasPlayedBefore(target.getUniqueId())) {
-                                Database.getDetailedPlaytimeMessage(sender, target, true);
+                                new BukkitRunnable(){
+                                    @Override
+                                    public void run() {
+                                        Database.getDetailedPlaytimeMessage(sender, target, true);
+                                    }
+                                }.runTaskAsynchronously(playtime);
                             } else {
                                 sender.sendMessage(Utilities.format(playtime.getConfig().getString("messages.player-not-found")
                                         .replace("%player%", args[1])));

@@ -72,7 +72,7 @@ public class Playtime extends JavaPlugin implements PluginMessageListener {
                         getConfig().getInt("auto-save") * 20 * 60);
 
                 AutoRank autoRank = new AutoRank(this);
-                autoRank.runTaskTimer(this, getConfig().getInt("auto-rank") * 20 * 60,
+                autoRank.runTaskTimerAsynchronously(this, getConfig().getInt("auto-rank") * 20 * 60,
                         getConfig().getInt("auto-rank") * 20 * 60);
 
                 for (Player player : Bukkit.getOnlinePlayers()) {

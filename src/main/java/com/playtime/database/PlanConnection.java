@@ -57,13 +57,12 @@ public class PlanConnection {
                 "LEFT JOIN (" +
                     "SELECT uuid, SUM(session_end - session_start) prevweek_min " +
                     "FROM plan.`plan_sessions` " +
-                    "WHERE uuid = '" + uuid + "' ";
-        cal.add(Calendar.HOUR, -(24*7));
+                    "WHERE uuid = '" + uuid + "' " +
+                    "AND session_end <= '" + cal.getTimeInMillis() + "' ";
+                cal.add(Calendar.HOUR, -(24*7));
         sql +=
                     "AND session_start >= '" + cal.getTimeInMillis() + "' "; // first day of prev week (monday)
-        cal.add(Calendar.HOUR, 24*6);
-        sql +=
-                    "AND session_end <= '" + cal.getTimeInMillis() + "' " + // last day of prev week (sunday)
+        sql +=// last day of prev week (sunday)
                     "GROUP BY uuid) " +
                 "prevweek ON prevweek.uuid = pu.uuid " +
                 "WHERE pu.uuid = '" + uuid + "'";

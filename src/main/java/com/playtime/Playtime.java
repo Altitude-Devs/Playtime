@@ -166,7 +166,7 @@ public class Playtime extends JavaPlugin implements PluginMessageListener {
                 String[] playerList = in.readUTF().split(", ");
 
                 ProxyManager.isOnline = false;
-                if (Arrays.asList(playerList).contains(ProxyManager.player.getName())) {
+                if (ProxyManager.player != null && ProxyManager.player.getName() != null && Arrays.asList(playerList).contains(ProxyManager.player.getName())) {
                     ProxyManager.isOnline = true;
                 }
             }
